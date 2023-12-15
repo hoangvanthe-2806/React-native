@@ -1,6 +1,6 @@
 import React from "react";
 import {View,Text,TouchableOpacity} from "react-native"
-import MyTab from "../navigation/MyTab";
+
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // const Tab = createBottomTabNavigator();

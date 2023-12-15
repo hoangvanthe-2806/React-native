@@ -11,7 +11,7 @@ function HomeScreen(props){
         
       <Header />
       <Content />
-      <Footer />
+      {/* <Footer /> */}
   
       </View>
 }

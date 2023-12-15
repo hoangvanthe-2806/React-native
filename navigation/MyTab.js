@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { homeScreen,setting } from '../screen';
+import { homeScreen,setting ,Cart,User} from '../screen';
 import Icon from "react-native-vector-icons/FontAwesome"
+import { Footer } from '../component';
 const Tab = createBottomTabNavigator();
 
 const screenOptions = ({ route }) => ({
@@ -15,22 +16,27 @@ const screenOptions = ({ route }) => ({
           iconName = "align-center";
       } else if (screenName == 'Setting') {
           iconName = "cogs";
-      } else if (screenName == 'FoodList') {
-          iconName = "pizza-slice";
+      } else if (screenName == 'Cart') {
+          iconName = "cart-plus";
       }
+      else if (screenName == 'User') {
+        iconName = "user";
+    }
       return <Icon name={iconName} size={20} color={focused ?'white':'black'} />
   },
   headerShown: false,
   tabBarActiveTintColor: 'white',
   tabBarInactiveTintColor: 'black',
-  tabBarInactiveBackgroundColor:'red',
-  tabBarActiveBackgroundColor:'red'
+  tabBarInactiveBackgroundColor:'blue',
+  tabBarActiveBackgroundColor:'blue'
 })
 function MyTab() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="homeScreen" component={homeScreen} />
+      <Tab.Screen name="Cart" component={Cart}/>
       <Tab.Screen name="setting" component={setting} />
+      <Tab.Screen name="User" component={User} />
     </Tab.Navigator>
   );
 }
