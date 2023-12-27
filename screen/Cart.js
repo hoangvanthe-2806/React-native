@@ -119,9 +119,109 @@
 
 // export default Cart;
 
+//the second
+// import React, { useState, useEffect } from "react";
+// import { View, Text, ScrollView, Image, TouchableOpacity, FlatList } from "react-native";
+
+// global.mycart = [];
+
+// function Cart({ route, navigation }) {
+//     const { updatedCart } = route.params || { updatedCart: [] };
+//     const [cartItems, setCartItems] = useState(updatedCart);
+
+//     const increaseQuantity = (index) => {
+//         const updatedItems = [...cartItems];
+//         updatedItems[index].quantity++;
+//         updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price;
+//         setCartItems(updatedItems);
+//         global.mycart = updatedItems;
+//     };
+
+//     const decreaseQuantity = (index) => {
+//         const updatedItems = [...cartItems];
+//         if (updatedItems[index].quantity > 1) {
+//             updatedItems[index].quantity--;
+//             updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price;
+//             setCartItems(updatedItems);
+//             global.mycart = updatedItems;
+//         }
+//     };
+
+//     const removeItem = (index) => {
+//         const updatedItems = [...cartItems];
+//         updatedItems.splice(index, 1);
+//         setCartItems(updatedItems);
+//         global.mycart = updatedItems;
+//     };
+
+//     const calculateTotal = () => {
+//         let total = 0;
+//         cartItems.forEach((item) => {
+//             total += item.totalPrice;
+//         });
+//         return total;
+//     };
+
+//     return (
+//         <ScrollView>
+//             <View style={{ flex: 100 }}>
+//                 <View style={{ flex: 30 }}>
+//                     <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 10 }}>
+//                         All_Total: ${calculateTotal()}
+//                     </Text>
+//                     {cartItems.map((item, index) => (
+//                         <View key={index} style={{ borderWidth: 2, borderRadius: 10, marginHorizontal: 10 }}>
+//                             <Image source={{ uri: item.url }} style={{ height: 200, width: "100%", resizeMode: "center" }} />
+//                             <Text>Name: {item.name}</Text>
+//                             <Text>Price: ${item.price}</Text>
+//                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+//                                 <TouchableOpacity onPress={() => decreaseQuantity(index)}>
+//                                     <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>-</Text>
+//                                 </TouchableOpacity>
+//                                 <Text>Quantity: {item.quantity}</Text>
+//                                 <TouchableOpacity onPress={() => increaseQuantity(index)}>
+//                                     <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>+</Text>
+//                                 </TouchableOpacity>
+//                                 <TouchableOpacity onPress={() => removeItem(index)}>
+//                                     <Text style={{ fontSize: 16, color: 'red', marginHorizontal: 10 }}>Remove</Text>
+//                                 </TouchableOpacity>
+//                             </View>
+//                             <Text>Total: ${item.totalPrice}</Text>
+//                         </View>
+//                     ))}
+//                 </View>
+//                 <View style={{ flex: 50 }}>
+//                     <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 10 }}>Cart</Text>
+//                     {cartItems.length > 0 ? (
+//                         <FlatList
+//                             data={cartItems}
+//                             keyExtractor={(item, index) => index.toString()}
+//                             renderItem={({ item, index }) => (
+//                                 <View>
+//                                     <Image source={{ uri: item.url }} style={{ height: 50, width: 50, resizeMode: 'cover' }} />
+//                                     <Text>{item.name} - ${item.price} - Quantity: {item.quantity}</Text>
+//                                     <Text>Total: ${item.totalPrice}</Text>
+//                                     <TouchableOpacity onPress={() => removeItem(index)}>
+//                                         <Text style={{ fontSize: 16, color: 'red' }}>Remove</Text>
+//                                     </TouchableOpacity>
+//                                 </View>
+//                             )}
+//                         />
+//                     ) : (
+//                         <Text>Your cart is empty.</Text>
+//                     )}
+                    
+//                 </View>
+//             </View>
+//         </ScrollView>
+//     );
+// }
+
+// export default Cart;
 
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity, FlatList } from "react-native";
+import { CardField, StripeProvider, useStripe } from "@stripe/stripe-react-native";
 
 global.mycart = [];
 
@@ -132,7 +232,7 @@ function Cart({ route, navigation }) {
     const increaseQuantity = (index) => {
         const updatedItems = [...cartItems];
         updatedItems[index].quantity++;
-        updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price; // Update the total price
+        updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price;
         setCartItems(updatedItems);
         global.mycart = updatedItems;
     };
@@ -141,7 +241,7 @@ function Cart({ route, navigation }) {
         const updatedItems = [...cartItems];
         if (updatedItems[index].quantity > 1) {
             updatedItems[index].quantity--;
-            updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price; // Update the total price
+            updatedItems[index].totalPrice = updatedItems[index].quantity * updatedItems[index].price;
             setCartItems(updatedItems);
             global.mycart = updatedItems;
         }
@@ -154,55 +254,94 @@ function Cart({ route, navigation }) {
         global.mycart = updatedItems;
     };
 
-    return (
-        <ScrollView>
-            <View style={{ flex: 100 }}>
-                <View style={{ flex: 30 }}>
-                    {cartItems.map((item, index) => (
-                        <View key={index} style={{ borderWidth: 2, borderRadius: 10, marginHorizontal: 10 }}>
-                            <Image source={{ uri: item.url }} style={{ height: 200, width: "100%", resizeMode: "center" }} />
-                            <Text>Name: {item.name}</Text>
-                            <Text>Price: ${item.price}</Text>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <TouchableOpacity onPress={() => decreaseQuantity(index)}>
-                                    <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>-</Text>
-                                </TouchableOpacity>
-                                <Text>Quantity: {item.quantity}</Text>
-                                <TouchableOpacity onPress={() => increaseQuantity(index)}>
-                                    <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>+</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => removeItem(index)}>
-                                    <Text style={{ fontSize: 16, color: 'red', marginHorizontal: 10 }}>Remove</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <Text>Total: ${item.totalPrice}</Text>
-                        </View>
-                    ))}
-                </View>
-                <View style={{ flex: 50 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 10 }}>Cart</Text>
+    const calculateTotal = () => {
+        let total = 0;
+        cartItems.forEach((item) => {
+            total += item.totalPrice;
+        });
+        return total;
+    };
 
-                    {cartItems.length > 0 ? (
-                        <FlatList
-                            data={cartItems}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item, index }) => (
-                                <View>
-                                    <Image source={{ uri: item.url }} style={{ height: 50, width: 50, resizeMode: 'cover' }} />
-                                    <Text>{item.name} - ${item.price} - Quantity: {item.quantity}</Text>
-                                    <Text>Total: ${item.totalPrice}</Text>
+    const { initPaymentSheet, presentPaymentSheet } = useStripe();
+
+    useEffect(() => {
+        initPaymentSheet({
+            paymentIntentClientSecret: 'YOUR_PAYMENT_INTENT_CLIENT_SECRET',
+        });
+    }, []);
+
+    const handleCheckout = async () => {
+        try {
+            const { error } = await presentPaymentSheet();
+            if (error) {
+                console.warn("Payment failed:", error);
+            } else {
+                console.log("Payment successful!");
+                // Perform additional actions (e.g., confirm the order, update backend)
+            }
+        } catch (error) {
+            console.error("Error presenting payment sheet:", error);
+        }
+    };
+
+    return (
+        <StripeProvider publishableKey="YOUR_STRIPE_PUBLISHABLE_KEY">
+            <ScrollView>
+                <View style={{ flex: 100 }}>
+                    <View style={{ flex: 30 }}>
+                        <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 10 }}>
+                            All_Total: ${calculateTotal()}
+                        </Text>
+                        {cartItems.map((item, index) => (
+                            <View key={index} style={{ borderWidth: 2, borderRadius: 10, marginHorizontal: 10 }}>
+                                <Image source={{ uri: item.url }} style={{ height: 200, width: "100%", resizeMode: "center" }} />
+                                <Text>Name: {item.name}</Text>
+                                <Text>Price: ${item.price}</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <TouchableOpacity onPress={() => decreaseQuantity(index)}>
+                                        <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>-</Text>
+                                    </TouchableOpacity>
+                                    <Text>Quantity: {item.quantity}</Text>
+                                    <TouchableOpacity onPress={() => increaseQuantity(index)}>
+                                        <Text style={{ fontSize: 20, color: 'blue', marginHorizontal: 10 }}>+</Text>
+                                    </TouchableOpacity>
                                     <TouchableOpacity onPress={() => removeItem(index)}>
-                                        <Text style={{ fontSize: 16, color: 'red' }}>Remove</Text>
+                                        <Text style={{ fontSize: 16, color: 'red', marginHorizontal: 10 }}>Remove</Text>
                                     </TouchableOpacity>
                                 </View>
-                            )}
-                        />
-                    ) : (
-                        <Text>Your cart is empty.</Text>
-                    )}
+                                <Text>Total: ${item.totalPrice}</Text>
+                            </View>
+                        ))}
+                    </View>
+                    <View style={{ flex: 50 }}>
+                        <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 10 }}>Cart</Text>
+                        {cartItems.length > 0 ? (
+                            <FlatList
+                                data={cartItems}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({ item, index }) => (
+                                    <View>
+                                        <Image source={{ uri: item.url }} style={{ height: 50, width: 50, resizeMode: 'cover' }} />
+                                        <Text>{item.name} - ${item.price} - Quantity: {item.quantity}</Text>
+                                        <Text>Total: ${item.totalPrice}</Text>
+                                        <TouchableOpacity onPress={() => removeItem(index)}>
+                                            <Text style={{ fontSize: 16, color: 'red' }}>Remove</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+                            />
+                        ) : (
+                            <Text>Your cart is empty.</Text>
+                        )}
+                    </View>
+                    <TouchableOpacity onPress={handleCheckout}>
+                        <Text style={{ fontSize: 18, color: 'green', textAlign: 'center', marginVertical: 10 }}>
+                            Checkout
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </StripeProvider>
     );
 }
 

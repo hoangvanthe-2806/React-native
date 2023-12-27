@@ -117,7 +117,7 @@ import { useNavigation } from '@react-navigation/native';
 
 function ProductDetail({ route }) {
     const navigation = useNavigation();
-    const { name, url, price } = route.params;
+    const { name, url, price,description } = route.params;
     const [count, setCount] = useState(1);
 
     const addToCart = () => {
@@ -138,6 +138,7 @@ function ProductDetail({ route }) {
                 <Image source={{ uri: url }} style={{ height: 200, width: '100%', resizeMode: 'center' }} />
                 <Text>Name: {name}</Text>
                 <Text>Price: ${price}</Text>
+                <Text>description:{description}</Text>
             </View>
 
             <View>

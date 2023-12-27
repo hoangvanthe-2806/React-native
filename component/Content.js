@@ -244,6 +244,7 @@ function Content() {
                 name: item.title,
                 url: item.image,
                 price: item.price,
+                description:item.description,
                 addToCart: addToCart, // Thêm hàm addToCart vào navigation params
               })
             }
