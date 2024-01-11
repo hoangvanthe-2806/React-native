@@ -217,8 +217,8 @@ function Setting(props){
                 }}>Lock app in background</Text>                
                 <View style={{flex: 1}} /> 
                 <Switch
-                    trackColor={{ false: 'black', true:'blue'}}
-                    thumbColor={isEnabledLockApp ?  'black' :'blue'}
+                    trackColor={{ false: 'black', true:'#ED6263'}}
+                    thumbColor={isEnabledLockApp ?  'black' :'#ED6263'}
                     //ios_backgroundColor="#3e3e3e"
                     onValueChange={()=>{
                         setEnabledLockApp(!isEnabledLockApp)
@@ -245,8 +245,8 @@ function Setting(props){
                 }}>Use fingerprint</Text>                
                 <View style={{flex: 1}} /> 
                 <Switch
-                    trackColor={{ false:'black', true:  'blue'}}
-                    thumbColor={isUseFingerprint ? 'black': 'blue'}
+                    trackColor={{ false:'black', true:  '#ED6263'}}
+                    thumbColor={isUseFingerprint ? 'black': '#ED6263'}
                     //ios_backgroundColor="#3e3e3e"
                     onValueChange={()=>{
                         setUseFingerprint(!isUseFingerprint)
@@ -273,8 +273,8 @@ function Setting(props){
                 }}>Change password</Text>                
                 <View style={{flex: 1}} /> 
                 <Switch
-                    trackColor={{ false: "black", true: 'blue'}}
-                    thumbColor={isUseFingerprint ? 'black' :'blue'}
+                    trackColor={{ false: "black", true: '#ED6263'}}
+                    thumbColor={isUseFingerprint ? 'black' :'#ED6263'}
                     //ios_backgroundColor="#3e3e3e"
                     onValueChange={()=>{
                         setEnabledChangePassword(!isEnabledChangePassword)                        

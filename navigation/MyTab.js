@@ -1,7 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { homeScreen,setting ,Cart,User} from '../screen';
 import Icon from "react-native-vector-icons/FontAwesome"
-import { Footer } from '../component';
+import React, { useState, useEffect } from "react";
+
+
+// const [searchText, setSearchText] = useState('')
+// const filteredFoods = () => foods.filter(eachFood => eachFood.name.toLowerCase().includes(searchText.toLowerCase()))
 const Tab = createBottomTabNavigator();
 
 const screenOptions = ({ route }) => ({
@@ -12,7 +16,7 @@ const screenOptions = ({ route }) => ({
       }
       let screenName = route.name
       let iconName = 'cogs'
-      if (screenName == 'homeScreen') {
+      if (screenName == 'home') {
           iconName = "align-center";
       } else if (screenName == 'Setting') {
           iconName = "cogs";
@@ -27,13 +31,13 @@ const screenOptions = ({ route }) => ({
   headerShown: false,
   tabBarActiveTintColor: 'white',
   tabBarInactiveTintColor: 'black',
-  tabBarInactiveBackgroundColor:'blue',
-  tabBarActiveBackgroundColor:'blue'
+  tabBarInactiveBackgroundColor:'#ED6263',
+  tabBarActiveBackgroundColor:'#ED6263'
 })
 function MyTab() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="homeScreen" component={homeScreen} />
+      <Tab.Screen name="home" component={homeScreen} />
       <Tab.Screen name="Cart" component={Cart}/>
       <Tab.Screen name="setting" component={setting} />
       <Tab.Screen name="User" component={User} />

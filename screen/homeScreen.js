@@ -9,7 +9,7 @@ function HomeScreen(props){
         flex:100
       }}>
         
-      <Header />
+      {/* <Header /> */}
       <Content />
       {/* <Footer /> */}
   

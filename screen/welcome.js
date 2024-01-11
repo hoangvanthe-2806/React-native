@@ -9,7 +9,7 @@ function Welcome(props){
     return <View style={{flex:1}}>
         <Text>welcome</Text>
         <TouchableOpacity onPress={()=>{
-            navigate('MyTab')
+            navigate('Login')
         }}>
             <Text>go back</Text>
         </TouchableOpacity>
