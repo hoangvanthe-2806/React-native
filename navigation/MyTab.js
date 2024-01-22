@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { homeScreen,setting ,Cart,User} from '../screen';
+import { homeScreen,setting ,Cart,User, Food} from '../screen';
 import Icon from "react-native-vector-icons/FontAwesome"
 import React, { useState, useEffect } from "react";
 
@@ -38,6 +38,7 @@ function MyTab() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="home" component={homeScreen} />
+      <Tab.Screen name="Food" component={Food} />
       <Tab.Screen name="Cart" component={Cart}/>
       <Tab.Screen name="setting" component={setting} />
       <Tab.Screen name="User" component={User} />

@@ -5,6 +5,7 @@ import homeScreen from "./homeScreen";
 import setting from "./setting";
 import Cart from "./Cart";
 import User from "./User";
+import Food from "./Food";
 export{
     productDetail,
     welcome,
@@ -12,4 +13,5 @@ export{
     setting,
     Cart,
     User,
+    Food,
 }

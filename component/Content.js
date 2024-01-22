@@ -17,7 +17,7 @@ function Content() {
   item.category.toLowerCase() === searchTerm.toLowerCase()
 );
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
+    fetch('https://65ae011f1dfbae409a73b3e3.mockapi.io/api/products/products')
       .then(res => res.json())
       .then(json => {
         setProducts(json);
@@ -25,7 +25,8 @@ function Content() {
         setCategories(uniqueCategories);
       });
   }, []);
-
+//https://65ae011f1dfbae409a73b3e3.mockapi.io/api/products/products
+//https://fakestoreapi.com/products
   const addToCart = (item) => {
     const newItem = {
       name: item.title,
@@ -40,25 +41,7 @@ function Content() {
 
   return (
     <View style={{ width: '100%', backgroundColor: 'white', flex: 70 }}>
-      <ScrollView horizontal>
-  {categories.map(category => (
-    <TouchableOpacity
-      key={category}
-      onPress={() => setSearchTerm(category)}
-      style={{
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        marginRight: 10,
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: searchTerm === category ? 'black' : 'gray',
-      }}
-    >
-      <Text style={{ color: 'black' }}>{category}</Text>
-    </TouchableOpacity>
-  ))}
-</ScrollView>
-      
+     
       
       <View style={{
             height: 60,
@@ -90,6 +73,26 @@ function Content() {
         </ScrollView>
         <Icon style={{ marginEnd: 20 }} color={colors.inactive} name={'bars'} size={30} />
       </View>
+      <ScrollView horizontal>
+        {categories.map(category => (
+          <TouchableOpacity
+            key={category}
+            onPress={() => setSearchTerm(category)}
+            style={{
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              marginRight: 10,
+              marginLeft:10,
+              borderRadius: 15,
+              borderWidth: 1,
+              borderColor: searchTerm === category ? colors.primary : colors.inactive,
+            }}
+          >
+            <Text style={{ color: 'black' }}>{category}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+     
       <FlatList
         horizontal={false}
         keyExtractor={(item) => item.name}
